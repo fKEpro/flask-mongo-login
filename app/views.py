@@ -76,7 +76,7 @@ def login():
     form = LoginForm(request.form)
     if request.method == "POST" and form.validate():
         user = User.objects(username=form.username.data).first()
-        if user == None:
+        if user is None:
             return redirect( url_for("signup") )
         else:
             if user.username == form.username.data and user.password == form.password.data:
@@ -90,7 +90,7 @@ def signup():
     form = SignUpForm(request.form)
     if request.method == "POST" and form.validate():
         user = user = User.objects(username=form.username.data).first()
-        if user == None:
+        if user is None:
             user = User(
                 username=form.username.data,
                 first_name=form.first_name.data,

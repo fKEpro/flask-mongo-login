@@ -66,7 +66,7 @@ class LoginForm(Form):
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if current_user.is_authenticated() == True and current_user.is_anonymous() == False:
+    if current_user.is_authenticated() and not current_user.is_anonymous():
         return render_template("index.html", user=current_user)
     return render_template("index.html", user=None)
 

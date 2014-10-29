@@ -5,9 +5,11 @@ from app import app
 from app import lm
 from app import db
 
+
 @lm.user_loader
 def load_user(userid):
     return User.objects.get(id=userid)
+
 
 class User(db.Document):
     # id = db.IntField()
@@ -35,6 +37,7 @@ class User(db.Document):
     def __repr__(self):
         return '<User %r>' % (self.username)
 
+
 class SignUpForm(Form):
     username = TextField("Username", [
         validators.Length(min=4, max=25),
@@ -52,6 +55,7 @@ class SignUpForm(Form):
     ])
     confirm = PasswordField("Confirm Password")
 
+
 class LoginForm(Form):
     username = TextField("Username", [
         validators.Length(min=4, max=25),
@@ -66,6 +70,7 @@ def index():
         return render_template("index.html", user=current_user)
     return render_template("index.html", user=None)
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm(request.form)
@@ -78,6 +83,7 @@ def login():
                 login_user(user=user, remember=True)
                 return redirect( url_for("index"))
     return render_template("login.html", form=form)
+
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -95,6 +101,7 @@ def signup():
             user.save()
             return redirect( url_for("login") )
     return render_template("signup.html", form=form)
+
 
 @app.route("/logout", methods=["GET"])
 @login_required

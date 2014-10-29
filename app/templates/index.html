@@ -5,10 +5,11 @@
 </head>
 <body>
 	
+	<h1>Home Page</h1>
+
 	{% if user == None %}
 	
-	<h1>test it!</h1>
-	<p>And hope it works!</p>
+	<p>Hello, world!</p>
 	<p>Not yet a user?</p>
 	<p>Sign up <a href="/signup">here</a></p>
 	<p>Already a user?</p>
@@ -16,10 +17,10 @@
 
 	{% else %}
 	
-	<h1>Hello, {{ user.username }}</h1>
-	<p>How do you like the site?</p>
+	<p>Hello, {{ user.username }}!</p>
 	<p>If you want to you can <a href="/logout">logout here</a></p>
 	
 	{% endif %}
+
 </body>
 </html>

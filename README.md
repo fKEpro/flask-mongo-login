@@ -28,3 +28,7 @@ Needs
 -----
 
 The biggest need I have at the moment is figuring out how to make it more secure. I'm learning as I go with this, so we will see. Any recommendations would be appreciated.
+
+Items on the list:
+1. Encrypt passwords
+2. Make sessions more secure by storing an encrypted value of the username+password, or something to that effect

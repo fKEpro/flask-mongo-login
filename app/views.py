@@ -77,11 +77,11 @@ def login():
     if request.method == "POST" and form.validate():
         user = User.objects(username=form.username.data).first()
         if user is None:
-            return redirect( url_for("signup") )
+            return redirect(url_for("signup"))
         else:
             if user.username == form.username.data and user.password == form.password.data:
                 login_user(user=user, remember=True)
-                return redirect( url_for("index"))
+                return redirect(url_for("index"))
     return render_template("login.html", form=form)
 
 
@@ -99,7 +99,7 @@ def signup():
                 password=form.password.data
             )
             user.save()
-            return redirect( url_for("login") )
+            return redirect(url_for("login"))
     return render_template("signup.html", form=form)
 
 
@@ -107,4 +107,4 @@ def signup():
 @login_required
 def logout():
     logout_user()
-    return redirect( url_for("index") )
+    return redirect(url_for("index"))

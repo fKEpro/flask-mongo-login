@@ -1,6 +1,6 @@
-from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import request, render_template, redirect, url_for
 from flask.ext.login import login_user, login_required, current_user, logout_user
-from wtforms import Form, BooleanField, TextField, PasswordField, validators
+from wtforms import Form, TextField, PasswordField, validators
 from app import app
 from app import lm
 from app import db

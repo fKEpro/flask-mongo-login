@@ -23,3 +23,8 @@ MONGODB_SETTINGS = {'DB': 'your-db-here'}
 ```
 
 the file is in the .gitignore file again so that contributors can have their own settings.
+
+Needs
+-----
+
+The biggest need I have at the moment is figuring out how to make it more secure. I'm learning as I go with this, so we will see. Any recommendations would be appreciated.

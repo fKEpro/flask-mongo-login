@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, flash, redirect, url_for
-from flask.ext.login import login_user, login_required, current_user, logout_user
+from flask.ext.login import login_user, current_user, logout_user #, login_required
+from flask.ext.security import Security, MongoEngineUserDatastore, login_required
 from wtforms import Form, BooleanField, TextField, PasswordField, validators
 from app import app
 from app import lm
@@ -10,12 +11,11 @@ def load_user(userid):
 	return User.objects.get(id=userid)
 
 class User(db.Document):
-	# id = db.IntField()
 	username = db.StringField(required=True)
 	first_name = db.StringField(max_length=25)
 	last_name = db.StringField(max_length=25)
 	email = db.EmailField(max_length=35)
-	password = db.StringField(max_length=35)
+	password = db.StringField(max_length=255)
 
 	def is_authenticated(self):
 		return True

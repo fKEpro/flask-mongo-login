@@ -7,7 +7,7 @@
 
   <h1>Home Page</h1>
 
-  {% if user is None %}
+  {% if user.is_anonymous() %}
 
   <p>Hello, world!</p>
   <p>Not yet a user?</p>

@@ -1,10 +1,15 @@
 from flask import request, render_template, redirect, url_for
-from flask.ext.login import login_user, current_user, logout_user #, login_required
-from flask.ext.security import Security, MongoEngineUserDatastore, login_required
+from flask.ext.login import login_user, current_user, logout_user
+from flask.ext.security import Security, MongoEngineUserDatastore, login_required, UserMixin, RoleMixin
 from wtforms import Form, TextField, PasswordField, validators
 from app import app
 from app import lm
 from app import db
+
+
+class Role(db.Document, RoleMixin):
+    name = db.StringField(max_length=80, unique=True)
+    description = db.StringField(max_length=255)
 
 
 @lm.user_loader
@@ -13,14 +18,15 @@ def load_user(userid):
 
 
 class User(db.Document):
-	username = db.StringField(required=True)
-	first_name = db.StringField(max_length=25)
-	last_name = db.StringField(max_length=25)
-	email = db.EmailField(max_length=35)
-	password = db.StringField(max_length=255)
+    username = db.StringField(required=True)
+    first_name = db.StringField(max_length=25)
+    last_name = db.StringField(max_length=25)
+    email = db.EmailField(max_length=35)
+    password = db.StringField(max_length=255)
+    roles = db.ListField(db.ReferenceField(Role), default=[])
 
     def is_authenticated(self):
-        return True
+    	return True
 
     def is_active(self):
         return True
@@ -62,6 +68,11 @@ class LoginForm(Form):
         validators.Required()
     ])
     password = PasswordField("Password", [validators.Required()])
+
+
+# Setup Flask-Security
+user_datastore = MongoEngineUserDatastore(db, User, Role)
+security = Security(app, user_datastore)
 
 
 @app.route("/", methods=["GET", "POST"])

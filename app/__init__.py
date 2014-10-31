@@ -11,4 +11,4 @@ db.init_app(app)
 lm = LoginManager()
 lm.init_app(app)
 
-from capp import views
+from app import views

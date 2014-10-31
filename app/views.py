@@ -17,7 +17,7 @@ def load_user(userid):
     return User.objects.get(id=userid)
 
 
-class User(db.Document):
+class User(db.Document, UserMixin):
     username = db.StringField(required=True)
     first_name = db.StringField(max_length=25)
     last_name = db.StringField(max_length=25)
@@ -79,7 +79,7 @@ security = Security(app, user_datastore)
 def index():
     if current_user.is_authenticated() and not current_user.is_anonymous():
         return render_template("index.html", user=current_user)
-    return render_template("index.html", user=None)
+    return render_template("index.html", user=current_user)
 
 
 @app.route("/login", methods=["GET", "POST"])
